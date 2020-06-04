@@ -13,7 +13,7 @@
       rel="stylesheet"
     />
 
-    <!-- <link href="/styles.css" rel="stylesheet" /> -->
+    <link href="./static/style.css" rel="stylesheet" />
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -23,9 +23,8 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light border">
-      <a class="navbar-brand" href="/"
-        ><span class="blue">APP NAME</span>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+      <a class="navbar-brand" href="/"><span class="blue">APP NAME</span></a>
       <button
         aria-controls="navbar"
         aria-expanded="false"
@@ -41,18 +40,25 @@
         {% if session.user_id %}
         <ul class="navbar-nav mr-auto mt-2">
           <li class="nav-item"><a class="nav-link" href="/about">ABOUT</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="/questionnaire">QUESTIONNAIRE</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" href="/about">ABOUT</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="/questionnaire">QUESTIONNAIRE</a>
+          </li>
         </ul>
         <ul class="navbar-nav ml-auto mt-2">
           <li class="nav-item">
-            <a class="nav-link" href="/logout">Log Out</a>
+            <a class="nav-link" href="/logout">LOG OUT</a>
           </li>
         </ul>
         {% else %}
         <ul class="navbar-nav ml-auto mt-2">
           <li class="nav-item">
-            <a class="nav-link" href="/register">Register</a>
+            <a class="nav-link" href="/register">SIGN UP</a>
           </li>
-          <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
+          <li class="nav-item"><a class="nav-link" href="/login">LOG IN</a></li>
         </ul>
         {% endif %}
       </div>
@@ -60,8 +66,19 @@
 
     {% if get_flashed_messages() %}
     <header>
-      <div class="alert alert-primary border text-center" role="alert">
+      <div
+        class="alert alert-primary border alert-dismissible fade show"
+        role="alert"
+      >
         {{ get_flashed_messages() | join(" ") }}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
     </header>
     {% endif %}
