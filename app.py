@@ -1,6 +1,7 @@
 from flask import Flask, flash, jsonify, redirect, render_template, request, session
 from flask_session import Session
 import sqlite3 as sql
+import re
 from tempfile import mkdtemp
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -112,13 +113,17 @@ def register():
             return render_template("register.html", error=error)
         
         # Check is username is already taken
-        is_new = db.execute("SELECT * FROM users WHERE username = ?", (username,))
-        # if len(is_new) == 1:
-        #     return
+        con = sql.connect("database.db")
+        con.row_factory = sql.Row
+        cur = con.cursor()
+        is_new = cur.execute("SELECT * FROM users WHERE username = ?", (username,))
+        rows = cur.fetchall();
+        if len(rows):
+            print("Not a new username")
 
         # Ensure password was submitted
         if not password:
-            print("no passowrd")
+            print("No passowrd")
 
         # Check if password is long enough, has a letter and a number init
         elif len(password) < 5:
@@ -155,6 +160,14 @@ def register():
     else:
         return render_template("register.html")
 
+@app.route('/something')
+def something():
+
+    # What would this be this page about?
+
+   return render_template("index.html")
+
+# Create a router for displaying a list of signed up users for an easy check
 @app.route('/users')
 def list():
    con = sql.connect("database.db")
