@@ -1,1 +1,5 @@
-# flask-app
+# Flask Template App
+
+## SQLite database
+## Bootstrap styling
+
